@@ -58,7 +58,7 @@ public class ProductListBean implements ProductListLocal {
                 int quantity= rs.getInt("quantity");
                 String stringProductStatus= rs.getString("productStatus");
                 ProductStatusEnum productStatus= ProductStatusEnum.Available;
-                if (stringProductStatus=="NotAvailable")
+                if (stringProductStatus.contains("NotAvailable"))
                 {
                     productStatus=ProductStatusEnum.NotAvailable;
                 }
