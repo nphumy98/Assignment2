@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package EjbPackage;
-
-import javax.ejb.Local;
+package noneEJB;
 
 /**
  *
  * @author MY PHU NGUYEN
  */
-@Local
-public interface OrderPendingLocal {
-    
+public enum OrderStatusEnum {
+    PENDING,
+    APPROVED,
+    REJECTED;
 }

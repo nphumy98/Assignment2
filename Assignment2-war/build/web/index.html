@@ -6,11 +6,22 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Start StudentDB</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <div>Please Select Customer or Admin Section</div>
+        <form action="http://localhost:8080/Assignment2-war/CustomerServlet" method="GET">
+             <!--hidden input field to help Servlet controller work-->
+            <input type="hidden" name="userDemand" value="customer" />
+            <button type="submit">CUSTOMER</button>
+        </form>
+        
+        <form action="adminHomePage.jsp" method="GET">
+             <!--hidden input field to help Servlet controller work-->
+            <input type="hidden" name="userDemand" value="admin" />
+            <button type="submit">ADMIN</button>
+        </form>
     </body>
 </html>

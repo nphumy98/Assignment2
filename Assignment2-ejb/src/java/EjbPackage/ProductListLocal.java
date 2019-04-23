@@ -5,15 +5,17 @@
  */
 package EjbPackage;
 
-import javax.ejb.Stateless;
+import java.util.ArrayList;
+import javax.ejb.Local;
+import noneEJB.Product;
 
 /**
  *
  * @author MY PHU NGUYEN
  */
-@Stateless
-public class OrderPending implements OrderPendingLocal {
+@Local
+public interface ProductListLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    public ArrayList<Product> getProductList();
+    
 }
