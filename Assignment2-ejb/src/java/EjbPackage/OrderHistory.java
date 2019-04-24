@@ -76,7 +76,8 @@ public class OrderHistory implements OrderHistoryLocal {
                 ArrayList<Product> productList= new ArrayList<Product>();
                 
                 String sqlQuery2 = "SELECT * FROM "+orderHasProductTableName+" WHERE orderID="+orderID;
-                ResultSet resultSet2 = statement.executeQuery(sqlQuery2);
+                Statement statement2 = connection.createStatement();
+                ResultSet resultSet2 = statement2.executeQuery(sqlQuery2);
                 // Step 7: Reading data from the ResultSet
                 if (resultSet2.next())
                 {

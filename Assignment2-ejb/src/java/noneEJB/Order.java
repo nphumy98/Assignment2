@@ -82,10 +82,6 @@ public class Order {
     }
     
     //method
-    @Override
-    public String toString() {
-        return "Order{" + "orderID=" + orderID + ", productList=" + productList + ", orderTotal=" + orderTotal + ", orderStatus=" + orderStatus + '}';
-    }
     
     public int calculateOrderTotal()
     {
@@ -95,6 +91,11 @@ public class Order {
             orderTotal+=aProduct.calculateTotal();
         }
         return orderTotal;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" + "orderID=" + orderID + ", productList=" + productList + ", orderTotal=" + orderTotal + ", orderStatus=" + orderStatus + '}';
     }
     
     

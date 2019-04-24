@@ -116,14 +116,13 @@ public class Product {
     
     
     //method
-    @Override
-    public String toString() {
-        return "Product{" + "productID=" + productID + ", productName=" + productName + ", pricePerUnit=" + pricePerUnit + ", quantity=" + quantity + '}';
-    }
-    
     public int calculateTotal()
     {
         return this.pricePerUnit*this.quantity;
     }
-  
+
+    @Override
+    public String toString() {
+        return "Product{" + "productStatus=" + productStatus + ", productID=" + productID + ", productName=" + productName + ", description=" + description + ", pricePerUnit=" + pricePerUnit + ", quantity=" + quantity + '}';
+    }
 }

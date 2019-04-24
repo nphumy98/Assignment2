@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import EjbPackage.OrderHistoryLocal;
 import EjbPackage.ProductListBean;
 import EjbPackage.ProductListLocal;
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class CustomerServlet extends HttpServlet {
 
     @EJB
     ProductListLocal aProductList;
+    @EJB
+    OrderHistoryLocal anOrderList;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
