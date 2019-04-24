@@ -16,4 +16,5 @@ import noneEJB.Order;
 @Local
 public interface OrderHistoryLocal {
     public ArrayList<Order> getOrderList();
+    public ProductListLocal getProductListBean();
 }

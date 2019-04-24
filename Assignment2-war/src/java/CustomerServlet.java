@@ -27,8 +27,6 @@ import noneEJB.Product;
 public class CustomerServlet extends HttpServlet {
 
     @EJB
-    ProductListLocal aProductList;
-    @EJB
     OrderHistoryLocal anOrderList;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -78,7 +76,7 @@ public class CustomerServlet extends HttpServlet {
     private void getProductListDB(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         //get StudentList from DB
-        ArrayList<Product> productList= aProductList.getProductList();
+        ArrayList<Product> productList= anOrderList.getProductListBean().getProductList();
         //add StudentList to request
         request.setAttribute("PRODUCT_LIST", productList);
         //send to JSP page
@@ -91,7 +89,7 @@ public class CustomerServlet extends HttpServlet {
         //get product ID from page
         int productID= Integer.parseInt(request.getParameter("productID"));
         //get product from database
-        Product retrieveProduct= aProductList.retrieveProduct(productID);
+        Product retrieveProduct= anOrderList.getProductListBean().retrieveProduct(productID);
         //add retrieveProduct to request
         request.setAttribute("retrieveProduct", retrieveProduct);
         //send to JSP page
