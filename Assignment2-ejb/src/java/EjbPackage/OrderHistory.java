@@ -90,18 +90,18 @@ public class OrderHistory implements OrderHistoryLocal {
             //CREATE AND INSERT DATA FOR TABLE OrderHasProduct
             // Step 4: Creating a new STUDENTDB table in DMSDB
             sqlQuery = "CREATE TABLE "+orderHasProductTableName + " (orderID INT," +
-            "productID INT, CONSTRAINT PK_OrderHasProduct PRIMARY KEY (orderID, productID))";
+            "productID INT, pricePerUnit INT, quantity INT, CONSTRAINT PK_OrderHasProduct PRIMARY KEY (orderID, productID))";
             resultDB = statement.executeUpdate(sqlQuery);
             if(resultDB == 0)
             System.out.println("OrderHasProduct Table is created");
             // Step 5: Inserting a record in the Student table in DMSDB
             sqlQuery = "INSERT INTO "+ orderHasProductTableName +" VALUES" +
-            "(2001,1001)," +
-            "(2001,1003)," +
-            "(2002,1002)," +
-            "(2002,1006)," +
-            "(2003,1003)," +
-            "(2003,1006)";
+            "(2001,1001,20,2)," +
+            "(2001,1003,22,1)," +
+            "(2002,1002,25,1)," +
+            "(2002,1006,15,3)," +
+            "(2003,1003,22,5)," +
+            "(2003,1006,15,5)";
             resultDB = statement.executeUpdate(sqlQuery);
             if(resultDB == 6)
             System.out.println("6 records are insterted in OrderHasProduct Table");

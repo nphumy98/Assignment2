@@ -40,6 +40,7 @@
                     <th>Price per Unit</th>
                     <th>Quantity</th>
                     <th>Product Status</th>
+                    <th>Total</th>
                 </tr>
                 
                 <% for (Product aProduct: anOrder.getProductList()) {%>
@@ -51,6 +52,7 @@
                     <td> <%= aProduct.getPricePerUnit()%> </td>
                     <td> <%= aProduct.getQuantity()%> </td>
                     <td> <%= aProduct.getProductStatus()%> </td>
+                    <td> <%= aProduct.calculateTotal()%> </td>
                 </tr>
                 <%}%>    
             </table>

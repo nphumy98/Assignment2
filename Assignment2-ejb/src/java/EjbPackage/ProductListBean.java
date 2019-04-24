@@ -29,7 +29,7 @@ public class ProductListBean implements ProductListLocal {
     // The dbURL to contain the Database URL
       private final String dbURL = "jdbc:derby://localhost:1527/DMSDB;" + 
                 "create=true;user=dms;password=dms2018";
-      private final String tableName="ProductBook";
+      private static final String tableName="ProductBook";
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     
@@ -196,6 +196,10 @@ public class ProductListBean implements ProductListLocal {
 
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
+    }
+
+    public static String getTableName() {
+        return tableName;
     }
     
     
