@@ -41,6 +41,7 @@ public class OrderHistory implements OrderHistoryLocal {
     //constructor
     public OrderHistory() throws ClassNotFoundException, SQLException
     {
+        productListBean= new ProductListBean();
         //Create OrderList
         orderList= new ArrayList<Order>();
         //Create Connection
