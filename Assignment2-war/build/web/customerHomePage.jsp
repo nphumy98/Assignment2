@@ -4,6 +4,7 @@
     Author     : MY PHU NGUYEN
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="noneEJB.Product"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Customer Page</title>
     </head>
     <body>
         <h1>Customer page</h1>
@@ -21,21 +22,32 @@
                 <tr>
                     <th>Product ID</th>
                     <th>Product Name</th>
+                    <th>Description</th>
                     <th>Price per Unit</th>
                     <th>Quantity</th>
                     <th>Product Status</th>
+                    <th>Action</th>
                 </tr>
                 
                 <% for (Product aProduct: productList) {%>
+
                 <tr>
                     <td> <%= aProduct.getProductID()%> </td>
                     <td> <%= aProduct.getProductName()%> </td>
+                    <td> <%= aProduct.getDescription()%> </td>
                     <td> <%= aProduct.getPricePerUnit()%> </td>
                     <td> <%= aProduct.getQuantity()%> </td>
                     <td> <%= aProduct.getProductStatus()%> </td>
+                    <td> 
+                        <form action="http://localhost:8080/Assignment2-war/CustomerServlet" method="GET">
+                            <!--hidden input field to help Servlet controller work-->
+                            <input type="hidden" name="userDemand" value="viewProduct" />
+                            <input type="hidden" name="productID" value="<%= aProduct.getProductID()%>" />
+                            <button type="submit">View Product</button>
+                        </form>
+                    </td>
                 </tr>
-                <%}%>
-        
+                <%}%>    
             </table>
         </div>
         <p><a href="orderCustomer.jsp">See Order History</a></p>

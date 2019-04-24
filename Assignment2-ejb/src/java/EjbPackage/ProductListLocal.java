@@ -5,6 +5,7 @@
  */
 package EjbPackage;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.ejb.Local;
 import noneEJB.Product;
@@ -17,5 +18,9 @@ import noneEJB.Product;
 public interface ProductListLocal {
 
     public ArrayList<Product> getProductList();
+
+    public Product retrieveProduct(int productID)throws ClassNotFoundException, SQLException;
+    
+    public void addProductBook(Product aProduct)throws ClassNotFoundException, SQLException;
     
 }

@@ -14,18 +14,20 @@ public class Product {
     private ProductStatusEnum productStatus;
     private int productID;
     private String productName;
+    private String description;
     private int pricePerUnit;
     private int quantity;
     
     
     //constructor
-    public Product(int productID, String productName, int pricePerUnit, int quantity, ProductStatusEnum productStatus) {
+    public Product(int productID, String productName, String description, int pricePerUnit, int quantity, ProductStatusEnum productStatus) {
         if (productID>this.productNumber)
         {
             this.productNumber=productID;
         }
         this.productID = productID;
         this.productName= productName;
+        this.description=description;
         this.pricePerUnit = pricePerUnit;
         this.quantity = quantity;
         this.productStatus= productStatus;
@@ -33,7 +35,7 @@ public class Product {
     
     public Product(String productName,int pricePerUnit)
     {
-        this(++productNumber,productName,pricePerUnit,0,ProductStatusEnum.NotAvailable);
+        this(++productNumber,productName,"This is a good book",pricePerUnit,0,ProductStatusEnum.NotAvailable);
         
     }
     
@@ -43,6 +45,7 @@ public class Product {
         productNumber++;
         this.productID = productNumber;
         this.productName= productName;
+        this.description="This is a good book";
         this.pricePerUnit = pricePerUnit;
         this.quantity = quantity;
         if (this.quantity>0)
@@ -102,6 +105,15 @@ public class Product {
     public void setProductName(String productName) {
         this.productName = productName;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     
     //method
     @Override

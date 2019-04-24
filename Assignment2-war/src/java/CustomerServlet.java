@@ -8,6 +8,7 @@ import EjbPackage.ProductListBean;
 import EjbPackage.ProductListLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -29,28 +30,24 @@ public class CustomerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-//            String userDemand= request.getParameter("userDemand");
-//            if (userDemand=="null")
-//            {
-//                userDemand= "startDB";
-//            }
-//            
-//            switch(userDemand)
-//            {
-//                case "startDB":
-////                    this.init();
-//                    getStudentListDB(request, response);
-//                    break;
-//                case "addStudent":
-//                    getAddStudent(request,response);
-//                    break;
-//                case "viewStudent":
-//                    viewStudent(request,response);
-//                    break;
-//                default:
-//                    getStudentListDB(request, response);
-//            }
-            getProductListDB(request, response);
+            String userDemand= request.getParameter("userDemand");
+            if (userDemand=="null")
+            {
+                userDemand= "customer";
+            }
+            
+            switch(userDemand)
+            {
+                case "customer":
+                    getProductListDB(request, response);
+                    break;
+                case "viewProduct":
+                    viewProduct(request,response);
+                    break;
+                default:
+                    getProductListDB(request, response);
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
        
@@ -79,6 +76,19 @@ public class CustomerServlet extends HttpServlet {
         request.setAttribute("PRODUCT_LIST", productList);
         //send to JSP page
         RequestDispatcher dispatcher= request.getRequestDispatcher("/customerHomePage.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void viewProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException 
+    {
+        //get product ID from page
+        int productID= Integer.parseInt(request.getParameter("productID"));
+        //get product from database
+        Product retrieveProduct= aProductList.retrieveProduct(productID);
+        //add retrieveProduct to request
+        request.setAttribute("retrieveProduct", retrieveProduct);
+        //send to JSP page
+        RequestDispatcher dispatcher= request.getRequestDispatcher("/viewProduct.jsp");
         dispatcher.forward(request, response);
     }
 
