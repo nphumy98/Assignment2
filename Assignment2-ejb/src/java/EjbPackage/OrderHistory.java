@@ -146,7 +146,11 @@ public class OrderHistory implements OrderHistoryLocal {
             while (resultSet2.next())
             {
                 int productID= resultSet2.getInt("productID"); //read productID
-                productList.add(productListBean.retrieveProduct(productID));
+                int pricePerUnit= resultSet2.getInt("pricePerUnit");
+                int quantity= resultSet2.getInt("quantity");
+                Product productFromProductTable= productListBean.retrieveProduct(productID);
+                Product productInOrder= new Product(productID,productFromProductTable.getProductName(),productFromProductTable.getDescription(),pricePerUnit,quantity,productFromProductTable.getProductStatus());
+                productList.add(productInOrder);
             }
             //create Order Object
             anOrder= new Order(orderID,productList,orderTotal,orderStatus);
@@ -155,6 +159,7 @@ public class OrderHistory implements OrderHistoryLocal {
         connection.close();
         return anOrder;
     }
+    
     
     private void initialiseOrderList()
     {
@@ -209,5 +214,14 @@ public class OrderHistory implements OrderHistoryLocal {
     public void setOrderList(ArrayList<Order> orderList) {
         this.orderList = orderList;
     }
+
+    public static String getOrderTableName() {
+        return orderTableName;
+    }
+
+    public static String getOrderHasProductTableName() {
+        return orderHasProductTableName;
+    }
+    
     
 }

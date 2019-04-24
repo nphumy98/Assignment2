@@ -151,6 +151,7 @@ public class ProductListBean implements ProductListLocal {
         return aProduct;
     }
     
+    
     //this method is to check if the table product table already exist in the database
     public static boolean isTableExisting(String tableName, Connection theConnection) throws SQLException
     {
