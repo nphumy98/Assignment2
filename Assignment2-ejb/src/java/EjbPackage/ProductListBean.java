@@ -130,7 +130,7 @@ public class ProductListBean implements ProductListLocal {
         String sqlQuery = "SELECT * FROM "+tableName+" WHERE productID="+productID;
         ResultSet resultSet = statement.executeQuery(sqlQuery);
         // Step 7: Reading data from the ResultSet
-        if (resultSet.next())
+        while (resultSet.next())
         {
             int id= resultSet.getInt("productID"); //read productID
             String productName= resultSet.getString("productName"); //read productName
