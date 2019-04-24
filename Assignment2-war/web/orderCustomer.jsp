@@ -22,6 +22,7 @@
                     <th>Order ID</th>
                     <th>Order Total</th>
                     <th>Order Status</th>
+                    <th>Action</th>
                 </tr>
                 
                 <% for (Order anOrder: orderList) {%>
@@ -30,9 +31,18 @@
                     <td> <%= anOrder.getOrderID()%> </td>
                     <td> <%= anOrder.getOrderTotal()%> </td>
                     <td> <%= anOrder.isOrderStatus()%> </td>
+                    <td> 
+                        <form action="http://localhost:8080/Assignment2-war/CustomerServlet" method="GET">
+                            <!--hidden input field to help Servlet controller work-->
+                            <input type="hidden" name="userDemand" value="viewOrder" />
+                            <input type="hidden" name="orderID" value="<%= anOrder.getOrderID()%>"/>
+                            <button type="submit">View Order</button>
+                        </form>
+                    </td>
                 </tr>
                 <%}%>    
             </table>
         </div>
+        <p><a href="http://localhost:8080/Assignment2-war/CustomerServlet?userDemand=customer">Return to Customer Home Page</a></p>
     </body>
 </html>

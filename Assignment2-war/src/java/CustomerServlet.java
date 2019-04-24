@@ -46,6 +46,9 @@ public class CustomerServlet extends HttpServlet {
                 case "viewProduct":
                     viewProduct(request,response);
                     break;
+                case "listOrder":
+                    listOrder(request,response);
+                    break;
                 case "viewOrder":
                     viewOrder(request,response);
                     break;
@@ -97,7 +100,7 @@ public class CustomerServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void viewOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    private void listOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         //get OrderList from DB
         ArrayList<Order> orderList= anOrderList.getOrderList();
@@ -105,6 +108,18 @@ public class CustomerServlet extends HttpServlet {
         request.setAttribute("ORDER_LIST", orderList);
         //send to JSP page
         RequestDispatcher dispatcher= request.getRequestDispatcher("/orderCustomer.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void viewOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
+        //get order ID from page
+        int orderID= Integer.parseInt(request.getParameter("orderID"));
+        //get product from database
+        Order retrieveOrder= anOrderList.retrieveOrder(orderID);
+        //add retrieveProduct to request
+        request.setAttribute("retrieveOrder", retrieveOrder);
+        //send to JSP page
+        RequestDispatcher dispatcher= request.getRequestDispatcher("/viewOrder.jsp");
         dispatcher.forward(request, response);
     }
 

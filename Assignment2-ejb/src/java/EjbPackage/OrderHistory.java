@@ -136,6 +136,49 @@ public class OrderHistory implements OrderHistoryLocal {
         connection.close();
     }
     
+    public Order retrieveOrder(int orderID) throws ClassNotFoundException, SQLException
+    {
+        Order anOrder=null;
+        //Create Connection
+        Connection connection= connectDatabaseSchema();
+        // Creating the SQL Statement
+        Statement statement = connection.createStatement();
+        String sqlQuery = "SELECT * FROM "+orderTableName+" WHERE orderID="+orderID;
+        ResultSet resultSet = statement.executeQuery(sqlQuery);
+        // Step 7: Reading data from the ResultSet
+        while (resultSet.next())
+        {
+            int id= resultSet.getInt("productID"); //read productID
+            int orderTotal= resultSet.getInt("orderTotal");
+            String stringOrderStatus= resultSet.getString("orderStatus");
+            OrderStatusEnum orderStatus= OrderStatusEnum.PENDING;
+            if (stringOrderStatus.contains("APPROVED"))
+            {
+                orderStatus=OrderStatusEnum.APPROVED;
+            }
+            else if (stringOrderStatus.contains("REJECTED"))
+            {
+                orderStatus=OrderStatusEnum.REJECTED;
+            }
+            //make a productList
+                ArrayList<Product> productList= new ArrayList<Product>();
+                
+                String sqlQuery2 = "SELECT * FROM "+orderHasProductTableName+" WHERE orderID="+orderID;
+                Statement statement2 = connection.createStatement();
+                ResultSet resultSet2 = statement2.executeQuery(sqlQuery2);
+                // Step 7: Reading data from the ResultSet
+                if (resultSet2.next())
+                {
+                    int productID= resultSet2.getInt("productID"); //read productID
+                    productList.add(productListBean.retrieveProduct(productID));
+                }
+                //create Order Object
+                anOrder= new Order(orderID,productList,orderTotal,orderStatus);
+        }
+        //close connection
+        connection.close();
+        return anOrder;
+    }
     
     private void initialiseOrderList()
     {

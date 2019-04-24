@@ -5,6 +5,7 @@
  */
 package EjbPackage;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.ejb.Local;
 import noneEJB.Order;
@@ -17,4 +18,5 @@ import noneEJB.Order;
 public interface OrderHistoryLocal {
     public ArrayList<Order> getOrderList();
     public ProductListLocal getProductListBean();
+    public Order retrieveOrder(int orderID)throws ClassNotFoundException, SQLException;
 }
