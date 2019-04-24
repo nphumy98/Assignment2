@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import noneEJB.Order;
 import noneEJB.Product;
 
 /**
@@ -46,6 +47,9 @@ public class CustomerServlet extends HttpServlet {
                     break;
                 case "viewProduct":
                     viewProduct(request,response);
+                    break;
+                case "viewOrder":
+                    viewOrder(request,response);
                     break;
                 default:
                     getProductListDB(request, response);
@@ -92,6 +96,17 @@ public class CustomerServlet extends HttpServlet {
         request.setAttribute("retrieveProduct", retrieveProduct);
         //send to JSP page
         RequestDispatcher dispatcher= request.getRequestDispatcher("/viewProduct.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void viewOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    {
+        //get OrderList from DB
+        ArrayList<Order> orderList= anOrderList.getOrderList();
+        //add OrderList to request
+        request.setAttribute("ORDER_LIST", orderList);
+        //send to JSP page
+        RequestDispatcher dispatcher= request.getRequestDispatcher("/orderCustomer.jsp");
         dispatcher.forward(request, response);
     }
 

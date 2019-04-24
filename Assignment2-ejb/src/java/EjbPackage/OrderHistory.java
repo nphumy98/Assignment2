@@ -33,7 +33,7 @@ public class OrderHistory implements OrderHistoryLocal {
     // The dbURL to contain the Database URL
       private static final String dbURL = "jdbc:derby://localhost:1527/DMSDB;" + 
                 "create=true;user=dms;password=dms2018";
-      private static final String orderTableName="Order";
+      private static final String orderTableName="OrderTable";
       private static final String orderHasProductTableName="OrderHasProduct";
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

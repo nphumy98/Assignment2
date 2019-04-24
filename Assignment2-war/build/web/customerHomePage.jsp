@@ -50,7 +50,7 @@
                 <%}%>    
             </table>
         </div>
-        <p><a href="orderCustomer.jsp">See Order History</a></p>
+        <p><a href="http://localhost:8080/Assignment2-war/CustomerServlet?userDemand=viewOrder">See Order History</a></p>
         <p><a href="index.html">Check out Cart</a></p>
         <p><a href="index.html">Return to Home Page</a></p>
     </body>

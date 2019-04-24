@@ -5,7 +5,9 @@
  */
 package EjbPackage;
 
+import java.util.ArrayList;
 import javax.ejb.Local;
+import noneEJB.Order;
 
 /**
  *
@@ -13,5 +15,5 @@ import javax.ejb.Local;
  */
 @Local
 public interface OrderHistoryLocal {
-    
+    public ArrayList<Order> getOrderList();
 }
