@@ -114,8 +114,14 @@ public class CartServlet extends HttpServlet {
     }
 
     private void checkOutProductCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Order cartOrder= new Order(cart.getProductList());
-        CustomerServlet.setOrderCart(cartOrder);
+        
+        ArrayList<Product> copyCart= new ArrayList<Product>();
+        for(Product aProduct: cart.getProductList())
+        {
+            copyCart.add(new Product(aProduct.getProductID(),aProduct.getProductName(),aProduct.getDescription(),aProduct.getPricePerUnit(), aProduct.getQuantity(), aProduct.getProductStatus()));
+        }
+        Order anOrder= new Order(copyCart);
+        CustomerServlet.setOrderCart(anOrder);
         //empty the cart
         cart.emptyCart();
         //send to JSP page
