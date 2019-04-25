@@ -5,7 +5,9 @@
  */
 package EjbPackage;
 
+import java.util.ArrayList;
 import javax.ejb.Local;
+import noneEJB.Product;
 
 /**
  *
@@ -13,5 +15,8 @@ import javax.ejb.Local;
  */
 @Local
 public interface CartLocal {
-    
+    public ArrayList<Product> getProductList();
+    public void addProduct(Product aProduct, int quantity);
+     public void removeProduct(int productID);
+     public void emptyCart();
 }

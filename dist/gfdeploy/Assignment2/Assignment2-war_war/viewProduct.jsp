@@ -39,6 +39,11 @@
         <form action="http://localhost:8080/Assignment2-war/CartServlet" method="GET">
             <!--hidden input field to help Servlet controller work-->
             <input type="hidden" name="userDemand" value="addProductCart"/>
+            <input type="hidden" name="productID" value="<%= aProduct.getProductID()%>">
+            <input type="hidden" name="productName" value="<%= aProduct.getProductName()%>">
+            <input type="hidden" name="description" value="<%= aProduct.getDescription()%>">
+            <input type="hidden" name="pricePerUnit" value="<%= aProduct.getPricePerUnit()%>">
+            <input type="hidden" name="productStatus" value="<%= aProduct.getProductStatus()%>">
             <input type="number" name="orderQuantity" min="1">
             <button type="submit">Add to Cart</button>
         </form>
