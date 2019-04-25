@@ -4,6 +4,7 @@
     Author     : MY PHU NGUYEN
 --%>
 
+<%@page import="noneEJB.ProductStatusEnum"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="noneEJB.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -28,7 +29,9 @@
                     <th>Total</th>
                     <th>Remove Product</th>
                 </tr>
-                <%! int total =0; %>
+                <%! int total =0;
+                boolean isAllProductAvailable= true;
+                %>
                 <% for (Product aProduct: productList) {%>
                 <% total+=aProduct.calculateTotal(); %>
                 <tr>
@@ -47,18 +50,30 @@
                             <button type="submit">Remove Product</button>
                         </form>
                     </td>
+                    <% if (aProduct.getProductStatus()==ProductStatusEnum.NotAvailable)
+                    {
+                        isAllProductAvailable= false;
+                    }
+                    %>
                 </tr>
             <%}%>    
             </table>
         </div>
         <h2>Total Cost: <%= total %></h2>
+        <% if (isAllProductAvailable==false)
+            {
+                 out.println("Some Products are not available at the moment in your Cart. However our admin will add more to the stock to fulfill your Order");
+            }
+        %>
         <!--reset the variable because cart is statefull-->
         <% if (total >0)
         {
             out.println("<p><a href='http://localhost:8080/Assignment2-war/CartServlet?userDemand=checkOut'>Check Out</a></p>");
             
         } %>
-        <% total =0; %>
+        <% total =0; 
+         isAllProductAvailable= true;
+        %>
         
         <p><a href="http://localhost:8080/Assignment2-war/CustomerServlet?userDemand=customer">Back to Customer HomePage</a></p>
     </body>

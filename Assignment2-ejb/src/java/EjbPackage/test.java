@@ -25,6 +25,7 @@ public class test {
         
         Order newOrder= new Order(productList);
         testorder.addAnOrder(newOrder);
+        testorder.getProductListBean().addQuantity(1001, 2);
         
         
     }

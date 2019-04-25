@@ -78,10 +78,10 @@ public class CustomerServlet extends HttpServlet {
         doGet(request,response);
     }
 
-    private void getProductListDB(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    private void getProductListDB(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException 
     {
         //get StudentList from DB
-        ArrayList<Product> productList= anOrderList.getProductListBean().getProductList();
+        ArrayList<Product> productList= anOrderList.getProductListBean().getDataProductListFromDB();
         //add StudentList to request
         request.setAttribute("PRODUCT_LIST", productList);
         //send to JSP page

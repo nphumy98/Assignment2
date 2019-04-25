@@ -8,6 +8,7 @@ package EjbPackage;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,7 +36,7 @@ public class ProductListBean implements ProductListLocal {
     
     public ProductListBean() throws SQLException, ClassNotFoundException
     {
-        //Create StudentList
+        //Create ProductList
         productList= new ArrayList<Product>();
         //Create Connection
         Connection connection= connectDatabaseSchema();
@@ -116,8 +117,88 @@ public class ProductListBean implements ProductListLocal {
                 aProduct.getProductID()+" ,'"+aProduct.getProductName()+"','"+aProduct.getPricePerUnit()+" ,'"+aProduct.getQuantity()+" ,'"+stringProductStatus+"')";
         statement.executeUpdate(sqlQuery);
         System.out.println("a Product has been added");
+        //get new data from DB
+        getDataProductListFromDB();
         //close connection
         connection.close();
+    }
+    
+    public ArrayList<Product> getDataProductListFromDB() throws ClassNotFoundException, SQLException
+    {
+        productList.clear();
+         Connection connection= connectDatabaseSchema();
+        // Creating the SQL Statement
+        Statement statement = connection.createStatement();
+        //Reading records from Product Table
+        ResultSet rs=statement.executeQuery("SELECT * FROM "+tableName);
+
+            while(rs.next())
+            {
+                int productID= rs.getInt("productID"); //read productID
+                String productName= rs.getString("productName"); //read productName
+                String description= rs.getString("description");
+                int pricePerUnit= rs.getInt("pricePerUnit");
+                int quantity= rs.getInt("quantity");
+                String stringProductStatus= rs.getString("productStatus");
+                ProductStatusEnum productStatus= ProductStatusEnum.Available;
+                if (stringProductStatus.contains("NotAvailable"))
+                {
+                    productStatus=ProductStatusEnum.NotAvailable;
+                }
+                //create Product Object
+                Product aProduct= new Product(productID, productName,description, pricePerUnit,quantity,productStatus);
+                //add Product to productList
+                productList.add(aProduct);
+                System.out.println("one product has been added");
+            }
+            return productList;
+    }
+    
+    public void addQuantity(int productID, int addedQuantity) throws ClassNotFoundException, SQLException
+    {
+        Connection connection= connectDatabaseSchema();
+        //get quantity first to check if it is more than 0
+        Statement statement = connection.createStatement();
+        // Creating the SQL Statement
+        String sqlQuery = "UPDATE "+tableName+" SET quantity= quantity+"+addedQuantity+", productStatus='Available'"+" WHERE productID="+productID;
+        PreparedStatement ps = connection.prepareStatement(sqlQuery);
+        ps.executeUpdate();
+        System.out.println("Quantity has been updated");
+        //close connection
+        connection.close();
+    }
+    
+    public boolean removeQuantity(int productID, int removedQuantity) throws ClassNotFoundException, SQLException
+    {
+        Connection connection= connectDatabaseSchema();
+        //check if quantity is ok
+        // Creating the SQL Statement
+        Statement statement = connection.createStatement();
+        //Reading records from Product Table
+        ResultSet rs=statement.executeQuery("SELECT * FROM "+tableName+" WHERE productID="+productID);
+        int currentQuantity= rs.getInt("quantity");
+        int resultQuantity= currentQuantity-removedQuantity;
+        if (resultQuantity<0)
+        {
+            connection.close();
+            return false;
+        }
+        else //update
+        {
+            String productStatus="Available";
+            if (resultQuantity==0)
+            {
+                productStatus="NotAvailable";
+            }
+            // Creating the SQL Statement
+            String sqlQuery = "UPDATE "+tableName+" SET quantity="+resultQuantity+", productStatus="+productStatus+" WHERE productID="+productID;
+            PreparedStatement ps = connection.prepareStatement(sqlQuery);
+            ps.executeUpdate();
+            System.out.println("Quantity has been updated");
+            //close connection
+            connection.close();
+            return true;
+        }
     }
     
     public Product retrieveProduct(int productID)throws ClassNotFoundException, SQLException

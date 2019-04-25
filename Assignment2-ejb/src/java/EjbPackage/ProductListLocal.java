@@ -17,10 +17,10 @@ import noneEJB.Product;
 @Local
 public interface ProductListLocal {
 
-    public ArrayList<Product> getProductList();
-
+    public ArrayList<Product> getDataProductListFromDB() throws ClassNotFoundException, SQLException;
     public Product retrieveProduct(int productID)throws ClassNotFoundException, SQLException;
     
     public void addProductBook(Product aProduct)throws ClassNotFoundException, SQLException;
+    public void addQuantity(int productID, int addedQuantity) throws ClassNotFoundException, SQLException;
     
 }

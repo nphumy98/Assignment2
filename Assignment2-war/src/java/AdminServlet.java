@@ -4,44 +4,27 @@
  * and open the template in the editor.
  */
 
+import EjbPackage.OrderHistoryLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import noneEJB.Product;
 
 /**
  *
  * @author MY PHU NGUYEN
  */
 public class AdminServlet extends HttpServlet {
+    @EJB
+    OrderHistoryLocal anOrderList;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdminServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -55,7 +38,35 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+                try {
+            String userDemand= request.getParameter("userDemand");
+            if (userDemand=="null")
+            {
+                userDemand= "admin";
+            }
+            
+            switch(userDemand)
+            {
+                case "admin":
+                    manageProduct(request,response);
+                    break;
+                case "addProduct":
+                    addProduct(request, response);
+                    break;
+                case "manageOrder":
+                    manageOrder(request,response);
+                    break;
+                case "addQuantity":
+                    updateQuantityProduct(request,response);
+                    break;
+                default:
+                    manageProduct(request, response);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+       
+        }
     }
 
     /**
@@ -69,17 +80,41 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doGet(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    private void manageProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
+       //get productList from DB
+        ArrayList<Product> productList= anOrderList.getProductListBean().getDataProductListFromDB();
+        //add productList to request
+        request.setAttribute("PRODUCT_LIST", productList);
+        //send to JSP page
+        RequestDispatcher dispatcher= request.getRequestDispatcher("/AdminManageProduct.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //send to JSP page
+        RequestDispatcher dispatcher= request.getRequestDispatcher("/AdminAddProduct.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void manageOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //send to JSP page
+        RequestDispatcher dispatcher= request.getRequestDispatcher("/AdminManageOrder.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void updateQuantityProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
+         //get product ID from page
+        int productID= Integer.parseInt(request.getParameter("productID"));
+        //get quantity from page
+        int addedQuantity= Integer.parseInt(request.getParameter("quantity"));
+        //update quantity
+        anOrderList.getProductListBean().addQuantity(productID, addedQuantity);
+        //display result
+        manageProduct(request, response);
+    }
+
 
 }
