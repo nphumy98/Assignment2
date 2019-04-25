@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import noneEJB.Order;
 import noneEJB.Product;
 import noneEJB.ProductStatusEnum;
 
@@ -113,7 +114,8 @@ public class CartServlet extends HttpServlet {
     }
 
     private void checkOutProductCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //to add order to table
+        Order cartOrder= new Order(cart.getProductList());
+        CustomerServlet.setOrderCart(cartOrder);
         //empty the cart
         cart.emptyCart();
         //send to JSP page

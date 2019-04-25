@@ -112,6 +112,27 @@ public class OrderHistory implements OrderHistoryLocal {
         connection.close();
     }
     
+    public void addAnOrder(Order anOrder) throws ClassNotFoundException, SQLException
+    {
+        this.orderList.add(anOrder);
+         //Create Connection
+        Connection connection= connectDatabaseSchema();
+        // Creating the SQL Statement
+        Statement statement = connection.createStatement();
+        String sqlQuery = "INSERT INTO "+ orderTableName +" VALUES (" + 
+                anOrder.getOrderID()+" ,'"+anOrder.getOrderTotal()+"','"+returnOrderStatus(anOrder.isOrderStatus())+"')";
+        statement.executeUpdate(sqlQuery);
+        System.out.println("Order has been added");
+        for(Product aProduct: anOrder.getProductList())
+        {
+            sqlQuery = "INSERT INTO "+ orderHasProductTableName +" VALUES (" + 
+            anOrder.getOrderID()+" ,'"+aProduct.getProductID()+" ,'"+aProduct.getPricePerUnit()+"','"+aProduct.getQuantity()+"')";
+            statement.executeUpdate(sqlQuery);
+        }
+        //close connection
+        connection.close();
+    }
+    
     public Order retrieveOrder(int orderID) throws ClassNotFoundException, SQLException
     {
         Order anOrder=null;
@@ -197,6 +218,22 @@ public class OrderHistory implements OrderHistoryLocal {
            return connection;
     }
     
+    
+    private String returnOrderStatus (OrderStatusEnum aStatus)
+    {
+        if (aStatus==OrderStatusEnum.APPROVED)
+        {
+            return "APPROVED";
+        }
+        else if (aStatus==OrderStatusEnum.REJECTED)
+        {
+            return "REJECTED";
+        }
+        else
+        {
+            return "PENDING";
+        }
+    }
     //getter and setter
 
     public ProductListLocal getProductListBean() {

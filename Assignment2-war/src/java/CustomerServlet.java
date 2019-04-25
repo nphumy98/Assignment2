@@ -28,6 +28,8 @@ public class CustomerServlet extends HttpServlet {
 
     @EJB
     OrderHistoryLocal anOrderList;
+    
+    private static Order orderCart;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -100,8 +102,13 @@ public class CustomerServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void listOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    private void listOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException 
     {
+        //check orderCart checkout or not
+        if (checkOrderCart()==false)
+        {
+            anOrderList.addAnOrder(orderCart);
+        }
         //get OrderList from DB
         ArrayList<Order> orderList= anOrderList.getOrderList();
         //add OrderList to request
@@ -122,5 +129,37 @@ public class CustomerServlet extends HttpServlet {
         RequestDispatcher dispatcher= request.getRequestDispatcher("/viewOrder.jsp");
         dispatcher.forward(request, response);
     }
+    
+    //private method to check if the orderCart in order history or not
+    private boolean checkOrderCart()
+    {
+        if (orderCart==null)
+        {
+            return true;
+        }
+        for(Order anOrder: this.getAnOrderList().getOrderList())
+        {
+            if (anOrder.getOrderID()==orderCart.getOrderID())
+                return true;
+        }
+        return false;
+    }
+    //getter and setter
 
+    public OrderHistoryLocal getAnOrderList() {
+        return anOrderList;
+    }
+
+    public void setAnOrderList(OrderHistoryLocal anOrderList) {
+        this.anOrderList = anOrderList;
+    }
+
+    public static Order getOrderCart() {
+        return orderCart;
+    }
+
+    public static void setOrderCart(Order orderCart) {
+        CustomerServlet.orderCart = orderCart;
+    }
+    
 }

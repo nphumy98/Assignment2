@@ -18,5 +18,6 @@ import noneEJB.Order;
 public interface OrderHistoryLocal {
     public ArrayList<Order> getOrderList();
     public ProductListLocal getProductListBean();
+    public void addAnOrder(Order anOrder) throws ClassNotFoundException, SQLException;
     public Order retrieveOrder(int orderID)throws ClassNotFoundException, SQLException;
 }
