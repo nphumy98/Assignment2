@@ -103,7 +103,7 @@ public class ProductListBean implements ProductListLocal {
     {
         String stringProductStatus= "Available";
         //check if quantity is less than 0 or more
-        if (aProduct.getQuantity()<0)
+        if (aProduct.getQuantity()<=0)
         {
             aProduct.setProductStatus(ProductStatusEnum.NotAvailable);
             stringProductStatus="NotAvailable";
@@ -114,11 +114,9 @@ public class ProductListBean implements ProductListLocal {
         // Creating the SQL Statement
         Statement statement = connection.createStatement();
         String sqlQuery = "INSERT INTO "+ tableName +" VALUES (" + 
-                aProduct.getProductID()+" ,'"+aProduct.getProductName()+"','"+aProduct.getPricePerUnit()+" ,'"+aProduct.getQuantity()+" ,'"+stringProductStatus+"')";
+                aProduct.getProductID()+" ,'"+aProduct.getProductName()+"' ,'"+aProduct.getDescription()+"',"+aProduct.getPricePerUnit()+" ,"+aProduct.getQuantity()+" ,'"+stringProductStatus+"')";
         statement.executeUpdate(sqlQuery);
         System.out.println("a Product has been added");
-        //get new data from DB
-        getDataProductListFromDB();
         //close connection
         connection.close();
     }

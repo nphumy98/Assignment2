@@ -43,7 +43,7 @@
                             <!--hidden input field to help Servlet controller work-->
                             <input type="hidden" name="userDemand" value="viewProduct" />
                             <input type="hidden" name="productID" value="<%= aProduct.getProductID()%>" />
-                            <button type="submit">View Product</button>
+                            <button type="submit">Buy Product</button>
                         </form>
                     </td>
                 </tr>

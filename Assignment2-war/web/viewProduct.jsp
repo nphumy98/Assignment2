@@ -44,7 +44,7 @@
             <input type="hidden" name="description" value="<%= aProduct.getDescription()%>">
             <input type="hidden" name="pricePerUnit" value="<%= aProduct.getPricePerUnit()%>">
             <input type="hidden" name="productStatus" value="<%= aProduct.getProductStatus()%>">
-            <input type="number" name="orderQuantity" min="1">
+            <input type="number" name="orderQuantity" min="1" required>
             <button type="submit">Add to Cart</button>
         </form>
         <p><a href="http://localhost:8080/Assignment2-war/CustomerServlet?userDemand=customer">Return to Customer Home Page</a></p>

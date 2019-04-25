@@ -39,13 +39,13 @@ public class Product {
         
     }
     
-    public Product(String productName, int pricePerUnit, int quantity)
+    public Product(String productName,String description, int pricePerUnit, int quantity)
     {
         
         productNumber++;
         this.productID = productNumber;
         this.productName= productName;
-        this.description="This is a good book";
+        this.description=description;
         this.pricePerUnit = pricePerUnit;
         this.quantity = quantity;
         if (this.quantity>0)

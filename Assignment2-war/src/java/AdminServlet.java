@@ -93,10 +93,18 @@ public class AdminServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
+        //get product ID from page
+        String productName= request.getParameter("productName");
+        String description= request.getParameter("description");
+        //get quantity from page
+        int pricePerUnit= Integer.parseInt(request.getParameter("pricePerUnit"));
+        int quantity=Integer.parseInt(request.getParameter("quantity"));
+        //make a Product and add to database
+        Product newProduct= new Product(productName,description,pricePerUnit,quantity);
+        anOrderList.getProductListBean().addProductBook(newProduct);
         //send to JSP page
-        RequestDispatcher dispatcher= request.getRequestDispatcher("/AdminAddProduct.jsp");
-        dispatcher.forward(request, response);
+        manageProduct(request, response);
     }
 
     private void manageOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

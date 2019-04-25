@@ -42,7 +42,7 @@
                             <!--hidden input field to help Servlet controller work-->
                             <input type="hidden" name="userDemand" value="addQuantity" />
                             <input type="hidden" name="productID" value="<%= aProduct.getProductID()%>" />
-                            <input type="number" name="quantity" min="1">
+                            <input type="number" name="quantity" min="1" required>
                             <button type="submit">Update Stock</button>
                         </form>
                     </td>
@@ -50,8 +50,8 @@
                 <%}%>    
             </table>
         </div>
-        <p><a href="http://localhost:8080/Assignment2-war/AdminServlet?userDemand=addProduct">Add New Product</a></p>
-        <p><a href="http://localhost:8080/Assignment2-war/AdminServlet?userDemand=manageOrder">Manage Order</a></p>
+        <p><a href="AdminAddProduct.jsp">Add New Product</a></p>
+        <p><a href="AdminManageOrder.jsp">Manage Order</a></p>
         <p><a href="index.html">Return to Home Page</a></p>
     </body>
 </html>
