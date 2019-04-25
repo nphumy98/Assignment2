@@ -120,14 +120,15 @@ public class OrderHistory implements OrderHistoryLocal {
         // Creating the SQL Statement
         Statement statement = connection.createStatement();
         String sqlQuery = "INSERT INTO "+ orderTableName +" VALUES (" + 
-                anOrder.getOrderID()+" ,'"+anOrder.getOrderTotal()+"','"+returnOrderStatus(anOrder.isOrderStatus())+"')";
+                anOrder.getOrderID()+" ,"+anOrder.getOrderTotal()+",'"+returnOrderStatus(anOrder.isOrderStatus())+"')";
         statement.executeUpdate(sqlQuery);
         System.out.println("Order has been added");
         for(Product aProduct: anOrder.getProductList())
         {
             sqlQuery = "INSERT INTO "+ orderHasProductTableName +" VALUES (" + 
-            anOrder.getOrderID()+" ,'"+aProduct.getProductID()+" ,'"+aProduct.getPricePerUnit()+"','"+aProduct.getQuantity()+"')";
+            anOrder.getOrderID()+" ,"+aProduct.getProductID()+" ,"+aProduct.getPricePerUnit()+","+aProduct.getQuantity()+")";
             statement.executeUpdate(sqlQuery);
+            System.out.println("Order has Product has been added");
         }
         //close connection
         connection.close();
