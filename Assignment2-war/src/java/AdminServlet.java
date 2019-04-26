@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import noneEJB.Order;
+import noneEJB.OrderStatusEnum;
 import noneEJB.Product;
 
 /**
@@ -56,6 +57,12 @@ public class AdminServlet extends HttpServlet {
                     break;
                 case "manageOrder":
                     manageOrder(request,response);
+                    break;
+                case "decideOrder":
+                    decideOrder(request,response);
+                    break;
+                case "submitDecideOrder":
+                    submitDecideOrder(request,response);
                     break;
                 case "addQuantity":
                     updateQuantityProduct(request,response);
@@ -129,5 +136,92 @@ public class AdminServlet extends HttpServlet {
         manageProduct(request, response);
     }
 
+    private void decideOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
+        //get order ID from page
+        int orderID= Integer.parseInt(request.getParameter("orderID"));
+        //get Order from database
+        Order retrieveOrder= anOrderList.retrieveOrder(orderID);
+        //add retrieveProduct to request
+        request.setAttribute("retrieveOrder", retrieveOrder);
+        //send to JSP page
+        RequestDispatcher dispatcher= request.getRequestDispatcher("/AdminViewOrder.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+        protected void confirmationPage(HttpServletRequest request, HttpServletResponse response, ArrayList<Product> runningOutStockProduct)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet NewServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Some Products below needed to be stocked so this order could be completed </h1>");
+
+            out.println("<ul>");
+            for(Product aProduct:runningOutStockProduct )
+            {
+                out.println("<li>"+aProduct.getProductID()+": "+aProduct.getProductName()+"</li>");
+            }
+            out.println("</ul>");
+            out.println("<p><a href=\"http://localhost:8080/Assignment2-war/AdminServlet?userDemand=manageOrder\">Back to Manage Order</a></p>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    private void submitDecideOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
+        //get order ID from page
+        int orderID= Integer.parseInt(request.getParameter("orderID"));
+        String stringOrderStatus= request.getParameter("orderStatus");
+        if (stringOrderStatus.contains("APPROVED")) //if order is approved
+        {
+            ArrayList<Product> productRunOutOfStock=checkIfOrderOk(orderID);
+            if (productRunOutOfStock.size()>0) // if some products run out of stock
+            {
+                confirmationPage(request,response,productRunOutOfStock);
+            }
+            else // if no product run out of stock
+            {
+                Order approvedOrder= anOrderList.retrieveOrder(orderID);
+                //updatequantity
+                for(Product aProduct: approvedOrder.getProductList())
+                {
+                    anOrderList.getProductListBean().removeQuantity(aProduct.getProductID(),aProduct.getQuantity());
+                }
+                
+                //modify orderStatus
+                anOrderList.modifyOrderStatus(orderID, OrderStatusEnum.APPROVED);
+                //display order page
+                manageOrder(request, response);
+            }
+        }
+        else //if order is rejected
+        {
+            //modify orderStatus
+            anOrderList.modifyOrderStatus(orderID, OrderStatusEnum.REJECTED);
+            //display order page
+            manageOrder(request, response);
+        }
+        
+    }
+    
+    private ArrayList<Product> checkIfOrderOk(int orderID) throws ClassNotFoundException, SQLException
+    {
+        ArrayList<Product> productRunOutOfStock= new ArrayList<Product>();
+        Order anOrder= anOrderList.retrieveOrder(orderID);
+        for(Product aProduct: anOrder.getProductList())
+        {
+            Product productInTable=anOrderList.getProductListBean().retrieveProduct(aProduct.getProductID());
+            if (productInTable.getQuantity()<aProduct.getQuantity())
+            {
+                productRunOutOfStock.add(productInTable);
+            }
+        }
+        return productRunOutOfStock;
+    }
 
 }

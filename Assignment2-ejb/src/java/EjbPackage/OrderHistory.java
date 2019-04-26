@@ -7,6 +7,7 @@ package EjbPackage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -180,6 +181,21 @@ public class OrderHistory implements OrderHistoryLocal {
         //close connection
         connection.close();
         return anOrder;
+    }
+    
+    public void modifyOrderStatus(int orderID, OrderStatusEnum aStatus) throws ClassNotFoundException, SQLException
+    {
+        String orderStatus= returnOrderStatus(aStatus);
+        Connection connection= connectDatabaseSchema();
+        //get quantity first to check if it is more than 0
+        Statement statement = connection.createStatement();
+        // Creating the SQL Statement
+        String sqlQuery = "UPDATE "+orderTableName+" SET orderStatus='"+orderStatus+"' WHERE orderID="+orderID;
+        PreparedStatement ps = connection.prepareStatement(sqlQuery);
+        ps.executeUpdate();
+        System.out.println("Order Status has been updated");
+        //close connection
+        connection.close();
     }
     
     public ArrayList<Order> getOrderListFromDB() throws ClassNotFoundException, SQLException

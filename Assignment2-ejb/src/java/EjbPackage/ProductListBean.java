@@ -173,7 +173,9 @@ public class ProductListBean implements ProductListLocal {
         // Creating the SQL Statement
         Statement statement = connection.createStatement();
         //Reading records from Product Table
-        ResultSet rs=statement.executeQuery("SELECT * FROM "+tableName+" WHERE productID="+productID);
+        String sqlQuery = "SELECT * FROM "+tableName+" WHERE productID="+productID;
+        ResultSet rs=statement.executeQuery(sqlQuery);
+        rs.next();
         int currentQuantity= rs.getInt("quantity");
         int resultQuantity= currentQuantity-removedQuantity;
         if (resultQuantity<0)
@@ -189,7 +191,7 @@ public class ProductListBean implements ProductListLocal {
                 productStatus="NotAvailable";
             }
             // Creating the SQL Statement
-            String sqlQuery = "UPDATE "+tableName+" SET quantity="+resultQuantity+", productStatus="+productStatus+" WHERE productID="+productID;
+            sqlQuery = "UPDATE "+tableName+" SET quantity="+resultQuantity+", productStatus='"+productStatus+"' WHERE productID="+productID;
             PreparedStatement ps = connection.prepareStatement(sqlQuery);
             ps.executeUpdate();
             System.out.println("Quantity has been updated");

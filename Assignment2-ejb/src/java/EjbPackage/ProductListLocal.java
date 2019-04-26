@@ -22,5 +22,6 @@ public interface ProductListLocal {
     
     public void addProductBook(Product aProduct)throws ClassNotFoundException, SQLException;
     public void addQuantity(int productID, int addedQuantity) throws ClassNotFoundException, SQLException;
+    public boolean removeQuantity(int productID, int removedQuantity) throws ClassNotFoundException, SQLException;
     
 }

@@ -8,6 +8,7 @@ package EjbPackage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import noneEJB.Order;
+import noneEJB.OrderStatusEnum;
 import noneEJB.Product;
 import noneEJB.ProductStatusEnum;
 
@@ -27,11 +28,13 @@ public class test {
 //        testorder.addAnOrder(newOrder);
 //        testorder.getProductListBean().addQuantity(1001, 2);
 //        testorder.getProductListBean().addProductBook(new Product("Cplusplus","awesome",30,10));
-        testorder.getOrderListFromDB();
-        for(Order anOrder: testorder.getOrderListFromDB())
-        {
-            System.out.println(anOrder);
-        }
+//        testorder.getOrderListFromDB();
+//        for(Order anOrder: testorder.getOrderListFromDB())
+//        {
+//            System.out.println(anOrder);
+//        }
+//        testorder.modifyOrderStatus(2001, OrderStatusEnum.APPROVED);
+        testorder.getProductListBean().removeQuantity(1001, 2);
         
         
     }
