@@ -51,7 +51,7 @@
             </table>
         </div>
         <p><a href="AdminAddProduct.jsp">Add New Product</a></p>
-        <p><a href="AdminManageOrder.jsp">Manage Order</a></p>
+        <p><a href="http://localhost:8080/Assignment2-war/AdminServlet?userDemand=manageOrder">Manage Order</a></p>
         <p><a href="index.html">Return to Home Page</a></p>
     </body>
 </html>
