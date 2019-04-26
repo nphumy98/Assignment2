@@ -29,7 +29,7 @@ public class CustomerServlet extends HttpServlet {
     @EJB
     OrderHistoryLocal anOrderList;
     
-    private static Order orderCart;
+    private static ArrayList<Order> orderCart= new ArrayList<Order>();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -105,12 +105,9 @@ public class CustomerServlet extends HttpServlet {
     private void listOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException 
     {
         //check orderCart checkout or not
-        if (checkOrderCart()==false)
-        {
-            anOrderList.addAnOrder(orderCart);
-        }
+        addOrderCart();
         //get OrderList from DB
-        ArrayList<Order> orderList= anOrderList.getOrderList();
+        ArrayList<Order> orderList= anOrderList.getOrderListFromDB();
         //add OrderList to request
         request.setAttribute("ORDER_LIST", orderList);
         //send to JSP page
@@ -131,18 +128,33 @@ public class CustomerServlet extends HttpServlet {
     }
     
     //private method to check if the orderCart in order history or not
-    private boolean checkOrderCart()
+    private boolean checkOrderCart(Order anOrder) throws ClassNotFoundException, SQLException
     {
-        if (orderCart==null)
+        if (anOrder==null)
         {
             return true;
         }
-        for(Order anOrder: this.getAnOrderList().getOrderList())
+        for(Order anotherOrder: anOrderList.getOrderListFromDB())
         {
-            if (anOrder.getOrderID()==orderCart.getOrderID())
+            if (anotherOrder.getOrderID()==anOrder.getOrderID())
+            {
                 return true;
+            }
+                
         }
         return false;
+    }
+    
+    //private method is to add all orderin cart that has not been in order list
+    private void addOrderCart() throws ClassNotFoundException, SQLException
+    {
+        for(Order anOrder: orderCart)
+        {
+            if (checkOrderCart(anOrder)==false)
+            {
+                anOrderList.addAnOrder(anOrder);
+            }
+        }
     }
     //getter and setter
 
@@ -154,12 +166,11 @@ public class CustomerServlet extends HttpServlet {
         this.anOrderList = anOrderList;
     }
 
-    public static Order getOrderCart() {
+    public static ArrayList<Order> getOrderCart() {
         return orderCart;
     }
 
-    public static void setOrderCart(Order orderCart) {
+    public static void setOrderCart(ArrayList<Order> orderCart) {
         CustomerServlet.orderCart = orderCart;
     }
-    
 }

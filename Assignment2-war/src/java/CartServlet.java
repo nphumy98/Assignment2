@@ -7,6 +7,7 @@
 import EjbPackage.CartLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -113,7 +114,7 @@ public class CartServlet extends HttpServlet {
         listProduct(request, response);
     }
 
-    private void checkOutProductCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void checkOutProductCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
         
         ArrayList<Product> copyCart= new ArrayList<Product>();
         for(Product aProduct: cart.getProductList())
@@ -121,7 +122,7 @@ public class CartServlet extends HttpServlet {
             copyCart.add(new Product(aProduct.getProductID(),aProduct.getProductName(),aProduct.getDescription(),aProduct.getPricePerUnit(), aProduct.getQuantity(), aProduct.getProductStatus()));
         }
         Order anOrder= new Order(copyCart);
-        CustomerServlet.setOrderCart(anOrder);
+        CustomerServlet.getOrderCart().add(anOrder);
         //empty the cart
         cart.emptyCart();
         //send to JSP page

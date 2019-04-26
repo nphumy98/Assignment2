@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import noneEJB.Order;
 import noneEJB.Product;
 
 /**
@@ -107,7 +108,11 @@ public class AdminServlet extends HttpServlet {
         manageProduct(request, response);
     }
 
-    private void manageOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void manageOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
+        //get StudentList from DB
+        ArrayList<Order> orderList= anOrderList.getOrderListFromDB();
+        //add StudentList to request
+        request.setAttribute("ORDER_LIST", orderList);
         //send to JSP page
         RequestDispatcher dispatcher= request.getRequestDispatcher("/AdminManageOrder.jsp");
         dispatcher.forward(request, response);

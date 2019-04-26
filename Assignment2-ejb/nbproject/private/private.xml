@@ -5,11 +5,9 @@
         <group>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-ejb/src/java/noneEJB/Product.java</file>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-ejb/src/java/EjbPackage/ProductListBean.java</file>
-            <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-ejb/src/java/EjbPackage/ProductListLocal.java</file>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-ejb/src/java/EjbPackage/OrderHistory.java</file>
-            <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-ejb/src/java/EjbPackage/CartLocal.java</file>
-            <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-ejb/src/java/EjbPackage/Cart.java</file>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-ejb/src/java/noneEJB/ProductStatusEnum.java</file>
+            <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-ejb/src/java/EjbPackage/test.java</file>
         </group>
     </open-files>
 </project-private>

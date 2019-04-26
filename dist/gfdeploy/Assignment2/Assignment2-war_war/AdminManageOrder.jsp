@@ -13,6 +13,8 @@
     </head>
     <body>
         <h1>Manage Order</h1>
+        <h2>Pending Orders</h2>
+        <h2>Old Orders</h2>
         <p><a href="http://localhost:8080/Assignment2-war/AdminServlet?userDemand=admin">Back to Admin Home Page</a></p>
     </body>
 </html>

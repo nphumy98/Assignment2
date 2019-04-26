@@ -182,6 +182,56 @@ public class OrderHistory implements OrderHistoryLocal {
         return anOrder;
     }
     
+    public ArrayList<Order> getOrderListFromDB() throws ClassNotFoundException, SQLException
+    {
+        this.orderList.clear();
+        //Create Connection
+        Connection connection= connectDatabaseSchema();
+        // Creating the SQL Statement
+        Statement statement = connection.createStatement();
+        String sqlQuery = "SELECT * FROM "+orderTableName;
+        ResultSet resultSet = statement.executeQuery(sqlQuery);
+        // Step 7: Reading data from the ResultSet
+        while (resultSet.next())
+        {
+            int id= resultSet.getInt("orderID"); //read productID
+            int orderTotal= resultSet.getInt("orderTotal");
+            String stringOrderStatus= resultSet.getString("orderStatus");
+            OrderStatusEnum orderStatus= OrderStatusEnum.PENDING;
+            if (stringOrderStatus.contains("APPROVED"))
+            {
+                orderStatus=OrderStatusEnum.APPROVED;
+            }
+            else if (stringOrderStatus.contains("REJECTED"))
+            {
+                orderStatus=OrderStatusEnum.REJECTED;
+            }
+            //make a productList
+            ArrayList<Product> productList= new ArrayList<Product>();
+
+            String sqlQuery2 = "SELECT * FROM "+orderHasProductTableName+" WHERE orderID="+id;
+            Statement statement2 = connection.createStatement();
+            ResultSet resultSet2 = statement2.executeQuery(sqlQuery2);
+            // Step 7: Reading data from the ResultSet
+            while (resultSet2.next())
+            {
+                int productID= resultSet2.getInt("productID"); //read productID
+                int pricePerUnit= resultSet2.getInt("pricePerUnit");
+                int quantity= resultSet2.getInt("quantity");
+                Product productFromProductTable= productListBean.retrieveProduct(productID);
+                Product productInOrder= new Product(productID,productFromProductTable.getProductName(),productFromProductTable.getDescription(),pricePerUnit,quantity,productFromProductTable.getProductStatus());
+                productList.add(productInOrder);
+            }
+            //create Order Object
+            Order anOrder= new Order(id,productList,orderTotal,orderStatus);
+            //add Order to list
+            this.orderList.add(anOrder);
+        }
+        //close connection
+        connection.close();
+        return orderList;
+    }
+    
     
     private void initialiseOrderList()
     {

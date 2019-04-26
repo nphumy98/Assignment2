@@ -26,7 +26,12 @@ public class test {
 //        Order newOrder= new Order(productList);
 //        testorder.addAnOrder(newOrder);
 //        testorder.getProductListBean().addQuantity(1001, 2);
-        testorder.getProductListBean().addProductBook(new Product("Cplusplus","awesome",30,10));
+//        testorder.getProductListBean().addProductBook(new Product("Cplusplus","awesome",30,10));
+        testorder.getOrderListFromDB();
+        for(Order anOrder: testorder.getOrderListFromDB())
+        {
+            System.out.println(anOrder);
+        }
         
         
     }

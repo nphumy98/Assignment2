@@ -5,12 +5,12 @@
         <group>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/src/java/AdminServlet.java</file>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/web/orderCustomer.jsp</file>
-            <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/web/adminHomePage.jsp</file>
+            <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/web/AdminManageProduct.jsp</file>
+            <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/web/AdminAddProduct.jsp</file>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/web/viewOrder.jsp</file>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/src/java/CustomerServlet.java</file>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/web/customerHomePage.jsp</file>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/src/java/CartServlet.java</file>
-            <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/web/Cart.jsp</file>
             <file>file:/C:/Users/MY%20PHU%20NGUYEN/Documents/NetBeansProjects/Assignment2/Assignment2-war/web/viewProduct.jsp</file>
         </group>
     </open-files>
