@@ -148,7 +148,7 @@ public class AdminServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
     
-        protected void confirmationPage(HttpServletRequest request, HttpServletResponse response, ArrayList<Product> runningOutStockProduct)
+        protected void confirmationOrderPage(HttpServletRequest request, HttpServletResponse response, ArrayList<Product> runningOutStockProduct)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -182,7 +182,7 @@ public class AdminServlet extends HttpServlet {
             ArrayList<Product> productRunOutOfStock=checkIfOrderOk(orderID);
             if (productRunOutOfStock.size()>0) // if some products run out of stock
             {
-                confirmationPage(request,response,productRunOutOfStock);
+                confirmationOrderPage(request,response,productRunOutOfStock);
             }
             else // if no product run out of stock
             {

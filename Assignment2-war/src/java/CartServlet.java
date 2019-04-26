@@ -27,6 +27,7 @@ public class CartServlet extends HttpServlet {
     @EJB
     CartLocal cart;
     
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -126,7 +127,28 @@ public class CartServlet extends HttpServlet {
         //empty the cart
         cart.emptyCart();
         //send to JSP page
-        listProduct(request, response);
+        confirmationCartPage(request,response);
+    }
+    
+        protected void confirmationCartPage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Confirmation Order</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Your Cart will be added to the Order History. Click the link to see new Order </h1>");
+
+            out.println("<ul>");
+            out.println("</ul>");
+            out.println("<p><a href=\"http://localhost:8080/Assignment2-war/CustomerServlet?userDemand=listOrder\">Back to Manage Order</a></p>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
 
