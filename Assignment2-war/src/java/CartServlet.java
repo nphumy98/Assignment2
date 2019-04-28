@@ -138,6 +138,13 @@ public class CartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+            out.println("<style type='text/css'>");
+            out.println("body {background-color: #FFF5EE;text-align: justify;}");
+            out.println("table,th,tr,td {border: 1px solid black;}");
+            out.println("#tabletext {font-size: large;font-family:");
+            out.println("'Helvetica',sans-serif;}");
+            out.println("#tableheader {font-weight:bold; text-align: center;}");
+            out.println("</style>");
             out.println("<title>Confirmation Order</title>");            
             out.println("</head>");
             out.println("<body>");

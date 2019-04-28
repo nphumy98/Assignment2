@@ -6,12 +6,18 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <style type="text/css">
+        body {background-color: #FFF5EE;text-align: justify;}
+        h1 {background-color: #CDCDCD;font-family: 
+        "Helvetica",sans-serif; color: #B9090B; text-transform:
+        uppercase;}
+        </style>
         <title>Book Order System</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>Please Select Customer or Admin Section</div>
+        <div><h1>Please Select Customer or Admin Section</h1></div>
         <form action="http://localhost:8080/Assignment2-war/CustomerServlet" method="GET">
              <!--hidden input field to help Servlet controller work-->
             <input type="hidden" name="userDemand" value="customer" />

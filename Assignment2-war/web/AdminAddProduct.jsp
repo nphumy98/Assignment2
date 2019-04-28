@@ -7,6 +7,12 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style type="text/css">
+        body {background-color: #FFF5EE;text-align: justify;}
+        h1 {background-color: #CDCDCD;font-family: 
+        "Helvetica",sans-serif; color: #B9090B; text-transform:
+        uppercase;}
+        </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Product</title>
     </head>

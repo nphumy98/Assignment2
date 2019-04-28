@@ -10,6 +10,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style type="text/css">
+        body {background-color: #FFF5EE;text-align: justify;}
+        table,th,tr,td {border: 1px solid black;}
+        #tabletext {font-size: large;font-family:
+        "Helvetica",sans-serif;}
+        #tableheader {font-weight:bold; text-align: center;}
+        </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Order Customer Page</title>
     </head>
