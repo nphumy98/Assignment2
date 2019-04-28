@@ -31,7 +31,6 @@
                     <th>Product Name</th>
                     <th>Description</th>
                     <th>Price per Unit</th>
-                    <th>Quantity</th>
                     <th>Product Status</th>
                     <th>Action</th>
                 </tr>
@@ -43,7 +42,6 @@
                     <td> <%= aProduct.getProductName()%> </td>
                     <td> <%= aProduct.getDescription()%> </td>
                     <td> <%= aProduct.getPricePerUnit()%> </td>
-                    <td> <%= aProduct.getQuantity()%> </td>
                     <td> <%= aProduct.getProductStatus()%> </td>
                     <td> 
                         <form action="http://localhost:8080/Assignment2-war/CustomerServlet" method="GET">
