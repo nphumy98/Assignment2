@@ -28,7 +28,6 @@
                     <th>Product Name</th>
                     <th>Description</th>
                     <th>Price per Unit</th>
-                    <th>Quantity</th>
                     <th>Product Status</th>
                 </tr>
 
@@ -37,7 +36,6 @@
                     <td> <%= aProduct.getProductName()%> </td>
                     <td> <%= aProduct.getDescription()%> </td>
                     <td> <%= aProduct.getPricePerUnit()%> </td>
-                    <td> <%= aProduct.getQuantity()%> </td>
                     <td> <%= aProduct.getProductStatus()%> </td>
                 </tr>
             </table>
